@@ -1,13 +1,30 @@
-import React from "react";
+import React, { useState } from "react";
 
-const globalContext = React.createContext({});
+export type TGlobalContext = {
+    count?: number;
+    incrementCounter?: () => void;
+}
 
-function GlobalContextProvider({children}){
+const globalContext = React.createContext<TGlobalContext>({});
+
+
+const useCounter = (): TGlobalContext => {
+    const [count, setCount] = useState(0);
+    const incrementCounter = () => {
+        setCount(count + 1);
+    }
+
+    return { count, incrementCounter };
+}
+
+function GlobalContextProvider({ children }: any) {
+    const { count, incrementCounter }: TGlobalContext = useCounter();
+
     return (
-        <globalContext.Provider value={{}}>
+        <globalContext.Provider value={{ count, incrementCounter }}>
             {children}
         </globalContext.Provider>
     )
 }
 
-export {GlobalContextProvider};
+export { GlobalContextProvider, globalContext };

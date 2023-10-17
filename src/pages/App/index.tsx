@@ -1,10 +1,8 @@
-import { AppRoutesProvider } from '../../contexts/routes';
+ import { AppRoutesProvider } from '../../contexts/routes';
 
 function App() {
   return (
-    <>
     <AppRoutesProvider></AppRoutesProvider>
-    </>
   );
 }
 

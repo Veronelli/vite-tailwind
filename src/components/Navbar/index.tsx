@@ -1,7 +1,10 @@
+import React from "react";
 import { NavLink } from "react-router-dom";
+import { TGlobalContext, globalContext } from "../../contexts";
 
 function Navbar() {
     const activeStyle = "underline";
+    const { count } = React.useContext<TGlobalContext>(globalContext);
     return (
         <nav className="flex justify-between items-center fixed z-10 w-full py-5 px-8 font-light text-sm top-0">
             <ul className="flex items-center gap-3">
@@ -85,7 +88,7 @@ function Navbar() {
                     <NavLink
                         className={({isActive}: any) => isActive ? activeStyle : undefined}
                         to="/furnitures">
-                        🛒 0
+                        🛒 {count}
                     </NavLink>
                 </li>
             </ul>
