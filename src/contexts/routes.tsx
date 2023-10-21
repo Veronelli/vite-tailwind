@@ -9,6 +9,7 @@ import { MyOrders } from "../pages/MyOrders";
 import { MyOrder } from "../pages/MyOrder";
 import { SignIn } from "../pages/SignIn";
 import { NotFound } from "../pages/NotFound";
+import { ProductDetail } from "../components/ProductDetail/index.module";
 
 function AppRoutes() {
     let routes = useRoutes([
@@ -48,6 +49,7 @@ function AppRoutesProvider() {
             <BrowserRouter>
                 <GlobalContextProvider>
                     <Navbar></Navbar>
+                    <ProductDetail></ProductDetail>
                     <Layout>
                         <AppRoutes />
                     </Layout>
