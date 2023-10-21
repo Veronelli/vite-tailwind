@@ -20,12 +20,19 @@ export type IProductInventory = {
   createdAt: string;
   price: number;
   images: string[];
+  description?: string;
 };
 
 function Card({ product }: { product: IProductInventory }) {
-  const { incrementCounter, openProductDetail } = React.useContext<TGlobalContext>(globalContext);
+  const { incrementCounter, openProductDetail, setProductDetail } = React.useContext<TGlobalContext>(globalContext);
+
+  const openProduct = (): void => {
+    setProductDetail!(product);
+    openProductDetail!();
+  }
+
   return (
-    <div className="bg-white h-full cursor-pointer w-56 h-60 rounded-lg" onClick={openProductDetail}>
+    <div className="bg-white h-full cursor-pointer w-56 h-60 rounded-lg" onClick={openProduct}>
       <figure className="relative mb-2 w-full h-full">
         <span className="absolute left-0 bg-white/60 rounded-lg text-black text-xs m-2 p-1">
           {product?.category?.name}
@@ -37,7 +44,7 @@ function Card({ product }: { product: IProductInventory }) {
         />
         <div
           className="absolute top-0 bg-white right-0 flex justify-center items-center w-6 h-6 rounded-full m-2 p-1"
-          onClick={() => incrementCounter()}
+          onClick={() => incrementCounter!()}
         >
           <PlusSmallIcon className="w-6 h-6 text-black"></PlusSmallIcon>
         </div>

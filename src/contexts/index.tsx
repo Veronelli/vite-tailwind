@@ -8,7 +8,7 @@ export type TGlobalContext = {
   openProductDetail?: () => void;
   closeProductDetail?: () => void;
   productDetail?: IProductInventory;
-  setProductDetail?: () => void;
+  setProductDetail?: (product: IProductInventory) => void;
 };
 
 const globalContext = React.createContext<TGlobalContext>({});
