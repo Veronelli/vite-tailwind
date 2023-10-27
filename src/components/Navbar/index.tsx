@@ -5,7 +5,8 @@ import { ShoppingCartIcon } from "@heroicons/react/20/solid";
 
 function Navbar() {
   const activeStyle = "underline";
-  const { count } = React.useContext<TGlobalContext>(globalContext);
+  const { count, openCheckoutDetail } = React.useContext<TGlobalContext>(globalContext);
+
   return (
     <nav className="flex bg-white justify-between items-center fixed z-10 w-full py-5 px-8 font-light text-sm top-0">
       <ul className="flex items-center gap-3">
@@ -113,16 +114,18 @@ function Navbar() {
           </NavLink>
         </li>
         <li>
-          <NavLink
+          <button
+
             className={({ isActive }: any) =>
               isActive ? activeStyle : undefined
             }
-            to="/furnitures"
+            onClick={openCheckoutDetail}
           >
             <div className="flex">
-              <ShoppingCartIcon className="w-6 h-6 text-black mr-2"></ShoppingCartIcon> {count}
+              <ShoppingCartIcon className="w-6 h-6 text-black mr-2"></ShoppingCartIcon>{" "}
+              {count}
             </div>
-          </NavLink>
+          </button>
         </li>
       </ul>
     </nav>
