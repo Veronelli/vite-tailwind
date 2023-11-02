@@ -13,7 +13,15 @@ export type TGlobalContext = {
   cartProducts?: [];
   openCheckoutDetail?: () => void;
   decreaseCounter?: () => void;
+  restartCounter?: ()=>void;
 };
+export type TOrderList = {
+  date: String,
+  products?: Array<IProductInventory>,
+  totalProducts?: Number,
+  totalPrice: Number,
+}
+
 
 const globalContext = React.createContext<TGlobalContext>({});
 export enum SideBarAction {
@@ -30,12 +38,15 @@ const useCounter = (): TGlobalContext => {
   const decreaseCounter = () => {
     setCount(count - 1);
   };
-
-  return { count, incrementCounter, decreaseCounter };
+  const restartCounter = () => {
+    setCount(0)
+  }
+  return { count, incrementCounter, decreaseCounter, restartCounter};
 };
 
 function GlobalContextProvider({ children }: any) {
-  const { count, incrementCounter, decreaseCounter }: TGlobalContext = useCounter();
+  const { count, incrementCounter, decreaseCounter, restartCounter }: TGlobalContext =
+    useCounter();
   const [isOpenSideBar, setIsOpenSideBar] = useState<SideBarAction>(
     SideBarAction.Close
   );
@@ -61,6 +72,7 @@ function GlobalContextProvider({ children }: any) {
         setCartProducts,
         openCheckoutDetail,
         decreaseCounter,
+        restartCounter
       }}
     >
       {children}

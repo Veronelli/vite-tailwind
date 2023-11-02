@@ -9,7 +9,6 @@ function Home() {
         async function getProductList() {
             const _productList = (await axios.get("https://api.escuelajs.co/api/v1/products")).data;
             setProductList(_productList);
-            console.log(_productList);
         }
         getProductList();
     }, [])

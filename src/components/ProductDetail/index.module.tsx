@@ -30,7 +30,7 @@ function ProductDetail() {
 
   return (
     <>
-      <div id="detail-product" className="min-h-0 overflow-scroll">
+      <div id="detail-product" className="min-h-0" style={{overflow:'overlay'}}>
         <div className="flex justify-between items-center p-6 sticky top-0 bg-slate-50 rounded-se-lg rounded-ss-lg">
           <h2 className="font-medium text-xl">Detail</h2>
           <div onClick={closeProductDetail} className="cursor-pointer">

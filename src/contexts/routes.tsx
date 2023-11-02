@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, useRoutes } from "react-router-dom";
 import {
   GlobalContextProvider,
   SideBarAction,
   TGlobalContext,
+  TOrderList,
   globalContext,
 } from ".";
 import { Layout } from "../components/Layout";
@@ -33,7 +34,7 @@ function AppRoutes() {
       element: <MyOrders />,
     },
     {
-      path: "/my-order",
+      path: "/my-orders/last",
       element: <MyOrder />,
     },
     {
@@ -51,14 +52,15 @@ function AppRoutes() {
 const routeContext = React.createContext({});
 
 function AppRoutesProvider() {
+  const [orderList, setOrderList] = useState<Array<TOrderList>>([]);
   return (
-    <routeContext.Provider value={{}}>
+    <routeContext.Provider value={{ orderList, setOrderList }}>
       <BrowserRouter>
         <GlobalContextProvider>
           <Navbar></Navbar>
           <SideBar>
             <globalContext.Consumer>
-              {({isOpenSideBar}) => {
+              {({ isOpenSideBar }) => {
                 return (
                   <>
                     {isOpenSideBar === SideBarAction.ProductDetail && (
@@ -81,4 +83,4 @@ function AppRoutesProvider() {
   );
 }
 
-export { AppRoutesProvider };
+export { AppRoutesProvider, routeContext };
