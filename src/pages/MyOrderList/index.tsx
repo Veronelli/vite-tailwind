@@ -5,7 +5,7 @@ import { XMarkIcon } from "@heroicons/react/20/solid";
 import { routeContext } from "../../contexts/routes";
 import { OrderGroupCard } from "../../components/OrderGroupCard";
 
-function MyOrder() {
+function MyOrderList() {
   const { orderList, setOrderList } = React.useContext(routeContext);
   return (
     <>
@@ -27,4 +27,4 @@ function MyOrder() {
   );
 }
 
-export { MyOrder };
+export { MyOrderList };

@@ -12,7 +12,7 @@ import { Navbar } from "../components/Navbar";
 import { Home } from "../pages/Home";
 import { MyAccount } from "../pages/MyAccount";
 import { MyOrders } from "../pages/MyOrders";
-import { MyOrder } from "../pages/MyOrder";
+import { MyOrderList } from "../pages/MyOrderList";
 import { SignIn } from "../pages/SignIn";
 import { NotFound } from "../pages/NotFound";
 import { ProductDetail } from "../components/ProductDetail/index.module";
@@ -30,12 +30,12 @@ function AppRoutes() {
       element: <MyAccount />,
     },
     {
-      path: "/my-orders",
+      path: "/my-orders/:id",
       element: <MyOrders />,
     },
     {
-      path: "/my-orders/last",
-      element: <MyOrder />,
+      path: "/my-orders",
+      element: <MyOrderList />,
     },
     {
       path: "/sign-in",
@@ -53,8 +53,10 @@ const routeContext = React.createContext({});
 
 function AppRoutesProvider() {
   const [orderList, setOrderList] = useState<Array<TOrderList>>([]);
+  const [selectedOrderList, setSelectedOrderList] = useState<any>([]);
+
   return (
-    <routeContext.Provider value={{ orderList, setOrderList }}>
+    <routeContext.Provider value={{ orderList, setOrderList, selectedOrderList, setSelectedOrderList }}>
       <BrowserRouter>
         <GlobalContextProvider>
           <Navbar></Navbar>

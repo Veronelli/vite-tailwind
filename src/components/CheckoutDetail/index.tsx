@@ -61,7 +61,7 @@ function CheckoutDetail() {
               </span>
             </p>
             <div className="mx-2">
-              <Link to="/my-orders/last">
+              <Link to="/my-orders">
                 <button
                   onClick={() => handleCheckout()}
                   className="flex justify-center w-full rounded-lg bg-black py-2"
