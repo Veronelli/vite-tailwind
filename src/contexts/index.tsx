@@ -16,11 +16,15 @@ export type TGlobalContext = {
   decreaseCounter?: () => void;
   restartCounter?: () => void;
   productList?: IProductInventory;
-  productListFiltred?:IProductInventory[];
-  setProductListFiltred?: ()=>void;
+  productListFiltred?: IProductInventory[];
+  setProductListFiltred?: () => void;
   setProductList?: () => void;
   searchFilter?: string;
   setSearchFilter?: () => void;
+  productListCategoryFiltred?: IProductInventory;
+  setProductListCategoryFiltred?: () => void;
+  categoryName?: String;
+  setCategoryName?: () => void;
 };
 export type TOrderList = {
   date: String;
@@ -53,7 +57,10 @@ const useCounter = (): TGlobalContext => {
 function GlobalContextProvider({ children }: any) {
   const [productList, setProductList] = React.useState([]);
   const [productListFiltred, setProductListFiltred] = React.useState([]);
+  const [productListCategoryFiltred, setProductListCategoryFiltred] =
+    React.useState([]);
   const [searchFilter, setSearchFilter] = React.useState("");
+  const [categoryName, setCategoryName] = React.useState("");
 
   const {
     count,
@@ -77,6 +84,11 @@ function GlobalContextProvider({ children }: any) {
       item.title.toLowerCase().includes(sectionName.toLowerCase())
     );
   };
+  const filterByCategory = (items: any[], sectionName: string) => {
+    return items.filter((item) =>
+      item.category.name.toLowerCase().includes(sectionName.toLowerCase())
+    );
+  };
 
   React.useEffect(() => {
     async function getProductList() {
@@ -87,12 +99,19 @@ function GlobalContextProvider({ children }: any) {
     }
     getProductList();
   }, []);
+
   React.useEffect(() => {
-    if (searchFilter)
+    if (searchFilter && !categoryName)
       setProductListFiltred(filtredByTitleId(productList, searchFilter));
-    else
-      setProductListFiltred(productList)
-  }, [productList, searchFilter]);
+    else if (categoryName)
+      setProductListCategoryFiltred(
+        filtredByTitleId(
+          filterByCategory(productList, categoryName),
+          searchFilter
+        )
+      );
+    else setProductListFiltred(productList);
+  }, [productList, searchFilter, categoryName]);
 
   return (
     <globalContext.Provider
@@ -113,7 +132,11 @@ function GlobalContextProvider({ children }: any) {
         setProductList,
         searchFilter,
         setSearchFilter,
-        productListFiltred
+        productListFiltred,
+        productListCategoryFiltred,
+        setProductListCategoryFiltred,
+        categoryName,
+        setCategoryName,
       }}
     >
       {children}

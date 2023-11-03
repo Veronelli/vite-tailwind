@@ -18,12 +18,17 @@ import { NotFound } from "../pages/NotFound";
 import { ProductDetail } from "../components/ProductDetail/index.module";
 import { SideBar } from "../components/Sidebar";
 import { CheckoutDetail } from "../components/CheckoutDetail";
+import { HomeCategory } from "../pages/Home/:category";
 
 function AppRoutes() {
   let routes = useRoutes([
     {
       path: "/",
       element: <Home />,
+    },
+    {
+      path: "/:category",
+      element: <HomeCategory />,
     },
     {
       path: "/my-account",
