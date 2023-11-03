@@ -5,9 +5,17 @@ import React from "react";
 import { globalContext } from "../../contexts";
 
 function Home() {
-  const { productListFiltred, setProductList, searchFilter, setSearchFilter } =
-    React.useContext(globalContext);
+  const {
+    productListFiltred,
+    setCategoryName,
+    setProductList,
+    searchFilter,
+    setSearchFilter,
+  } = React.useContext(globalContext);
 
+  React.useEffect(() => {
+    setCategoryName(null);
+  }, []);
   const changeSearchFilter = (event: any) => {
     setSearchFilter(event.target.value);
   };
@@ -23,9 +31,9 @@ function Home() {
           onChange={(event) => changeSearchFilter(event)}
           placeholder="Search Product"
         />
-        {
-         productListFiltred?.length <= 0 && ( <div>We Don't have any "{searchFilter}"</div>)   
-        }
+        {productListFiltred?.length <= 0 && (
+          <div>We Don't have any "{searchFilter}"</div>
+        )}
         {productListFiltred?.length > 0 && (
           <div className="grid gap-4 grid-cols-4 w-full max-w-screen-lg">
             {productListFiltred &&
